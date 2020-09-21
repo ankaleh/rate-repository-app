@@ -6,27 +6,24 @@ import theme from '../theme'
 import { Link } from 'react-router-native'
 import RepositoryList from './RepositoryList';
 
-/* const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    paddingLeft: Constants.statusBarHeight,
-    paddingBottom: Constants.statusBarHeight,
-    
-    
-    // ...
+    paddingRight: Constants.statusBarHeight,
+    //paddingBottom: Constants.statusBarHeight,
   },
-  // ...
-}); */
+  
+});
 
 const AppBarTab = ({ text, to }) => {
 
     return (
 
-        <View >
+        <View style={styles.container}>
             
             <Link to={to} component={TouchableWithoutFeedback}>
             
-                <Text fontWeight='bold' color='primary' fontSize="subheading">
+                <Text fontWeight='bold' color='primary' fontSize="subheading" >
                     {text}
                 </Text>
             

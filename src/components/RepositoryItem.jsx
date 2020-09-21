@@ -3,63 +3,63 @@ import { /* Text, */ View, Image, StyleSheet } from 'react-native';
 import Text from './Text';
 import theme from '../theme';
 
-const RepositoryItem = ({ item }) => {
+export const styles = StyleSheet.create({
+    flexContainerStats: {
+      display: 'flex',
+      flexDirection: "row",
+      justifyContent: "center",
+      paddingLeft: 20,
+      
+    },
+    flexItemStats: {
+        flexGrow: 1,
+    },
 
-    const styles = StyleSheet.create({
-        flexContainerStats: {
-          display: 'flex',
-          flexDirection: "row",
-          justifyContent: "center",
-          paddingLeft: 20,
-          
-        },
-        flexItemStats: {
-            flexGrow: 1,
-        },
+    flexContainerLogoAndBasics: { //tämän sisällä kuva (item 1) ja perustietonippu (item2) rinnakkain
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        paddingLeft: 20,
+        paddingRight: 50,
+        paddingTop: 30,
+    },
 
-        flexContainerLogoAndBasics: { //tämän sisällä kuva (item 1) ja perustietonippu (item2) rinnakkain
-            display: 'flex',
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            paddingLeft: 20,
-            paddingRight: 50,
-            paddingTop: 30,
-        },
+    flexItemLogo: {
+        width: 50,
+        height: 50,
+    },
 
-        flexItemLogo: {
-            width: 50,
-            height: 50,
-        },
+    flexContainerBasics: { //tämän sisällä perustiedot eli nimi, kuvaus JA KIELI allekkain
+        display: 'flex',
+        flexDirection: "column",
+        justifyContent: "center",
+        paddingLeft: 20,
+        paddingBottom: 20,
+        paddingRight: 20
+    },
 
-        flexContainerBasics: { //tämän sisällä perustiedot eli nimi, kuvaus JA KIELI allekkain
-            display: 'flex',
-            flexDirection: "column",
-            justifyContent: "center",
-            paddingLeft: 20,
-            paddingBottom: 20,
-            paddingRight: 20
-        },
-
-        flexText: {
-            flexGrow: 0,
-            padding: 3,
-            
-        },
-        flexBoxContainer: { //flex container
-            display: 'flex',
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            padding: 5,
+    flexText: {
+        flexGrow: 0,
+        padding: 3,
         
-        },
-        flexBox: { //flex item
-            flexGrow: 0,
-            borderRadius: 4,
-            borderWidth: 0.5,
-            padding: 5,
-            backgroundColor: theme.colors.primary,
-        },
-      });
+    },
+    flexBoxContainer: { //flex container
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        padding: 5,
+    
+    },
+    flexBox: { //flex item
+        flexGrow: 0,
+        borderRadius: 4,
+        borderWidth: 0.5,
+        padding: 5,
+        backgroundColor: theme.colors.primary,
+    },
+  });
+
+const RepositoryItem = ({ item }) => {
 
     const getCount = (count) => {
         if (count>=1000) {
@@ -79,22 +79,16 @@ const RepositoryItem = ({ item }) => {
          <View >
              
             <View style={styles.flexContainerLogoAndBasics}> 
-                <View  >
-                    <Image style={styles.flexItemLogo} source={{ uri:item.ownerAvatarUrl }}/>
-                </View>
+                
+                <Image style={styles.flexItemLogo} source={{ uri:item.ownerAvatarUrl }}/>
+                
                 <View style={styles.flexContainerBasics}>
-                    <View style={styles.flexText}>
-                        <Text fontWeight="bold" fontSize="subheading">{item.fullName} </Text>
-                    </View>
-                    <View style={styles.flexText}>
-                        <Text fontSize="subheading">{item.description} </Text>
-                    </View>
+                    <Text style={styles.flexText} fontWeight="bold" fontSize="subheading">{item.fullName} </Text>
+                    <Text style={styles.flexText} fontSize="subheading">{item.description} </Text>
                     <View style={styles.flexBoxContainer}>
-                    <View style= {styles.flexBox}>
-                        <Text color="textInTextBox" fontWeight="bold">{item.language}
-                        </Text>
-                    </View>
-                    </View>
+                        <Text style= {styles.flexBox} color="textInTextBox" fontWeight="bold">{item.language}
+                    </Text>
+                </View>
                 </View>
                 
             </View>

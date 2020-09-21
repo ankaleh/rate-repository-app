@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import Text from './Text'
 import theme from '../theme'
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingLeft: Constants.statusBarHeight,
     paddingBottom: Constants.statusBarHeight,
-    backgroundColor: theme.colors.appBarBackgroundColor
-    
+    backgroundColor: theme.colors.appBarBackgroundColor,
+    //flexDirection: "column"
     
     // ...
   },
@@ -24,8 +24,23 @@ const AppBar = () => {
 
   return (
   <View style={styles.container}>
-      <AppBarTab text="Repositories" to="/"/>
-      <AppBarTab text="Sign in" to="/sign-in"/>
+      <ScrollView horizontal>
+            <AppBarTab text="Repositories" to="/"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            
+      </ScrollView>
+      {/* <ScrollView horizontal>
+            <AppBarTab text="Repositories" to="/"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            <AppBarTab text="Sign in" to="/sign-in"/>
+            <AppBarTab text="Näkymätön" to="/sign-in"/>
+            <AppBarTab text="Näkymätön2" to="/sign-in"/>
+            <AppBarTab text="Näkymätön3" to="/sign-in"/>
+      </ScrollView> */}
 </View>
   )
 };

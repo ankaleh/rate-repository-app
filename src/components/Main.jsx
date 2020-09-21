@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+
+  
+
   return (
     <View style={styles.container}>
       <AppBar/>
@@ -23,7 +26,7 @@ const Main = () => {
             <RepositoryList/>
         </Route>
         <Route path="/sign-in">
-            <SignIn/>
+            <SignIn />
         </Route>
         <Redirect to="/"/>
       </Switch>
