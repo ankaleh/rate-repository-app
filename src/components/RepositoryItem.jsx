@@ -72,7 +72,7 @@ const RepositoryItem = ({ item }) => {
     const forks = getCount(item.forksCount);
     const reviews = getCount(item.reviewCount);
     const ratings = getCount(item.ratingAverage);
-    console.log(getCount(item.forksCount));
+    //console.log(getCount(item.forksCount));
 
     return (
         
@@ -93,7 +93,6 @@ const RepositoryItem = ({ item }) => {
                 
             </View>
             
-
             <View style={styles.flexContainerStats}>
                 <View style={styles.flexItemStats}>
                 <Text fontWeight="bold" fontSize="subheading">{stargazersCount}</Text>

@@ -8,6 +8,8 @@ import Text from './Text';
 import { Formik, useField } from 'formik'
 import theme from '../theme';
 import * as yup from 'yup';
+import useSignIn from '../hooks/useSignIn';
+import { useHistory } from 'react-router-native';
 
 
 export const styles = StyleSheet.create({
@@ -70,9 +72,26 @@ const SignInForm = ( {onSubmit} ) => {
 
 const SignIn = () => {
 
-    const onSubmit = (values) => {
-        console.log('Tekstikenttiin kirjoitettiin: ', values); //values on olio, jolla kentät username ja password
-      };
+    const [signIn] = useSignIn();
+    const history = useHistory();
+
+    const onSubmit = async (values) => {
+        const { username, password } = values;
+
+        console.log('Tekstikenttiin kirjoitettiin: ', username, password); //values on olio, jolla kentät username ja password
+        
+        try {
+            const { data } = await signIn({ username, password }); // kirjaudutaan
+            //data on siis olio, jolla kenttä authorize, 
+            //jonka arvona olio, jolla kenttä accessToken
+            //console.log('SignIn-funktiokutsun palauttama data: ', data);
+
+        } catch (e) {
+            console.log(e);
+        }
+        history.push('/')
+        
+    };
     
     const validationSchema = yup.object().shape({
         password: yup
