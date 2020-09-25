@@ -5,7 +5,7 @@ import FormikTextInput from './FormikTextInput';
 import { TouchableWithoutFeedback } from 'react-native';
 import Text from './Text';
 //import TextInput from './TextInput';
-import { Formik, useField } from 'formik'
+import { Formik } from 'formik';
 import theme from '../theme';
 import * as yup from 'yup';
 import useSignIn from '../hooks/useSignIn';
@@ -68,7 +68,7 @@ const SignInForm = ( {onSubmit} ) => {
     </View>
   );
         
-}
+};
 
 const SignIn = () => {
 
@@ -81,7 +81,7 @@ const SignIn = () => {
         console.log('Tekstikenttiin kirjoitettiin: ', username, password); //values on olio, jolla kentät username ja password
         
         try {
-            const { data } = await signIn({ username, password }); // kirjaudutaan
+            /* const { data } = */ await signIn({ username, password }); // kirjaudutaan
             //data on siis olio, jolla kenttä authorize, 
             //jonka arvona olio, jolla kenttä accessToken
             //console.log('SignIn-funktiokutsun palauttama data: ', data);
@@ -89,7 +89,7 @@ const SignIn = () => {
         } catch (e) {
             console.log(e);
         }
-        history.push('/')
+        history.push('/');
         
     };
     
@@ -100,7 +100,7 @@ const SignIn = () => {
         username: yup
             .string()
             .required('Username is required.')
-    })
+    });
     //Formikin sisällä (lapsena) on funktio, joka saa parametrikseen Formikin funktion, joka puolestaan annetaan 
     //kirjautumislomakkeelle propsina.
     return (
@@ -112,7 +112,7 @@ const SignIn = () => {
                 
             </Formik>
         </View>
-    )
+    );
 
     
   

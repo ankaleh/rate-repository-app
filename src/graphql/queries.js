@@ -19,13 +19,44 @@ query {
     }
   }
 }
-`
+`;
 export const GET_AUTHORIZED_USER = gql`
 query {
 	authorizedUser {
-	  id
-	  username
+	  	id
+		username
 	}
   }
 
+`;
+
+export const GET_REPOSITORY = gql`
+query getRepository($id: ID!) {
+	repository(id: $id) {
+		id
+		fullName
+		stargazersCount
+		forksCount
+		ownerAvatarUrl
+		description
+		language
+		reviewCount
+		ratingAverage
+		url
+		reviews {
+			edges {
+			  node {
+				id
+				text
+				rating
+				createdAt
+				user {
+				  id
+				  username
+				}
+			  }
+			}
+		  }
+	}
+}
 `

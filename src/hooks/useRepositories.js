@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
+
 import { useState, useEffect } from 'react';
-import { GET_ALL_REPOSITORIES } from '../graphql/queries'
+import { GET_ALL_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = () => {
   //const [repositories, setRepositories] = useState();
@@ -25,23 +26,23 @@ const useRepositories = () => {
 };
  */
   //console.log('Alussa!')
-  const { data, error, loading } = useQuery(GET_ALL_REPOSITORIES);
+  const { data, /* error, */ loading } = useQuery(GET_ALL_REPOSITORIES);
   const [repositories, setRepositories] = useState();
   
   useEffect(() => {
     if (data) {
-      setRepositories(data.repositories)
+      setRepositories(data.repositories);
     }
     //console.log('Repositoriot: ', data);
     
   }, [data]); 
 
   if (loading) {
-    //console.log('Loading: ', loading)
+    console.log('Loading: ', loading)
     //return loading;
   }
   
-  return { repositories, loading/* , refetch: fetchRepositories */ }
+  return { repositories, loading/* , refetch: fetchRepositories */ };
 
-}
+};
 export default useRepositories;

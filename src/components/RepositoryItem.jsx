@@ -1,7 +1,8 @@
 import React from 'react';
-import { /* Text, */ View, Image, StyleSheet } from 'react-native';
+import { /* Text, */ View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Text from './Text';
-import theme from '../theme';
+import theme from '../theme'
+import * as Linking from 'expo-linking';
 
 export const styles = StyleSheet.create({
     flexContainerStats: {
@@ -22,6 +23,7 @@ export const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 50,
         paddingTop: 30,
+        //backgroundColor: theme.colors.primary,
     },
 
     flexItemLogo: {
@@ -39,35 +41,71 @@ export const styles = StyleSheet.create({
     },
 
     flexText: {
-        flexGrow: 0,
-        padding: 3,
+        display: 'flex',
+        flexDirection: "column",
+        justifyContent: "center",
+        paddingTop: 5,
+        //backgroundColor: theme.colors.primary,
+        width: 300,
         
     },
     flexBoxContainer: { //flex container
         display: 'flex',
         flexDirection: "row",
         justifyContent: "flex-start",
-        padding: 5,
+        paddingTop: 5,
     
     },
     flexBox: { //flex item
         flexGrow: 0,
         borderRadius: 4,
         borderWidth: 0.5,
+        borderColor: theme.colors.primary,
         padding: 5,
         backgroundColor: theme.colors.primary,
+
     },
+    formButton: {
+        flexDirection: "row",
+        justifyContent: "center",
+        borderRadius: 4,
+        borderWidth: 0.5,
+        padding: 10,
+        backgroundColor: theme.colors.primary,
+        borderColor: theme.colors.primary,
+        margin: 10,
+
+    },
+    roundContainer: { 
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: "center",
+        borderWidth: 0.10,
+        borderColor: theme.colors.primary,
+        paddingTop: 15,
+        width: 50,
+        height: 50,
+        borderRadius: 50/2
+
+    },
+    reviewsContainer: {
+        display: 'flex',
+        backgroundColor: "#b7d7e82",
+        margin: 10,
+    }
   });
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, pressed }) => {
 
+
+    //console.log(pressed)
     const getCount = (count) => {
         if (count>=1000) {
             const number = count/1000;
             return `${number.toFixed(1)}k`;
         }
         return count;
-    }
+    };
     const stargazersCount = getCount(item.stargazersCount);
     const forks = getCount(item.forksCount);
     const reviews = getCount(item.reviewCount);
@@ -114,6 +152,17 @@ const RepositoryItem = ({ item }) => {
                     <Text fontSize="subheading">Rating</Text>
                 </View>
             </View>
+            {pressed === true
+            ? <View style={styles.formButton}>
+                <TouchableWithoutFeedback onPress={()=> {
+                    console.log('pressed')
+                    Linking.openURL(item.url)
+                    }} >
+                    <Text color="textInTextBox" fontWeight="bold">Open in GitHub</Text>
+                </TouchableWithoutFeedback>
+                </View>
+            : null
+            }
         </View>
 
   );

@@ -4,11 +4,11 @@ import React from 'react';
 import { /* Text, */ StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
-import { Route, Switch, Redirect } from 'react-router-native'
+import { Route, Switch } from 'react-router-native';
 import SignIn from './SignIn';
 import { useApolloClient } from '@apollo/client';
 import Text from './Text';
-//import { useHistory } from 'react-router-native';
+import RenderRepositoryItem from './RenderRepositoryItem'
 
 
 const styles = StyleSheet.create({
@@ -29,15 +29,16 @@ const SignOut = () => {
     <View>
       <Text fontWeight='bold' color='primary' fontSize="subheading">You have been signed out!</Text>
     </View>
-  )
-}
+  );
+};
  
 const Main = () => {
+
+
 
   return (
     <View style={styles.container}>
       <AppBar/>
-      
       <Switch>
         <Route path="/" exact >
             <RepositoryList/>
@@ -48,7 +49,14 @@ const Main = () => {
         <Route path="/sign-out">
           <SignOut/>
         </Route>
-        <Redirect to="/"/>
+
+        <Route
+          path="/:id"
+          render={({ match }) => {
+            const id=match.params.id; 
+        return <RenderRepositoryItem id={id}/> 
+        }}
+        />
       </Switch>
     </View>
   );

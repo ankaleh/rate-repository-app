@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Text from './Text'
-import theme from '../theme'
+import Text from './Text';
+import theme from '../theme';
 import AppBarTab from './AppBarTab';
 import { GET_AUTHORIZED_USER } from '../graphql/queries';
 
@@ -25,13 +25,13 @@ const AppBar = () => {
 
   useEffect(() => {
     if (data) {
-      setUser(data.authorizedUser)
-      console.log('Data haettu AppBarissa: ', data.authorizedUser)
+      setUser(data.authorizedUser);
+      //console.log('Data haettu AppBarissa: ', data.authorizedUser);
     }
     else if (error) {
-      console.log(error.message)
+      console.log(error.message);
     } else {
-      console.log('Dataa ei ole haettu AppBarissa.')
+      //console.log('Dataa ei ole haettu AppBarissa.');
     }
   }, [data]); 
 
@@ -40,10 +40,10 @@ const AppBar = () => {
       <View>
       <Text fontWeight='bold' color='primary' fontSize="subheading">Loading user...</Text>
     </View>
-    )
+    );
   }
 
-  console.log('User AppBarissa: ', user) 
+  //console.log('User AppBarissa: ', user); 
 
   return (
   <View style={styles.container}>
@@ -55,7 +55,7 @@ const AppBar = () => {
 
       </ScrollView>
   </View>
-  )
+  );
 };
 
 export default AppBar;
