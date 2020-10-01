@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { View } from 'react-native';
 import Main from './src/components/Main';
 import createApolloClient from './src/utils/apolloClient';
-//import Constants from 'expo-constants';
+import Constants from 'expo-constants';
 import AuthStorage from './src/utils/authStorage';
 import AuthStorageContext from './src/contexts/AuthStorageContext';
 import { gql } from 'apollo-boost';
@@ -29,7 +29,7 @@ apolloClient.query({query})
 }); */
 const App = () => {
 
-  //console.log('Constants.manifest: ', Constants.manifest);
+  console.log('Constants.manifest: ', Constants.manifest);
   
   return (
     <View>

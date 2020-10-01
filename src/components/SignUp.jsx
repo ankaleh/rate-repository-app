@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { View, StyleSheet } from 'react-native';
 import FormikTextInput from './FormikTextInput';
 import { TouchableWithoutFeedback } from 'react-native';
@@ -10,7 +9,8 @@ import theme from '../theme';
 import * as yup from 'yup';
 import useSignIn from '../hooks/useSignIn';
 import { useHistory } from 'react-router-native';
-
+import { CREATE_USER } from '../graphql/mutations';
+import { useMutation } from '@apollo/react-hooks';
 
 export const styles = StyleSheet.create({
     form: {
@@ -34,9 +34,6 @@ export const styles = StyleSheet.create({
         backgroundColor: theme.colors.primary,
         margin: 10,
     },
-    separator: {
-        height: 10,
-      },
     
   });
 
@@ -63,9 +60,17 @@ const SignInForm = ( {onSubmit} ) => {
             onChangeText={text => helpers2.setValue(text)}
             /> */}
         </View>
+        <View >
+            <FormikTextInput secureTextEntry style={styles.formField} name="passwordConf" placeholder="Password confirmation"/>
+            {/* <TextInput
+            placeholder="Password"
+            value={field2.value}
+            onChangeText={text => helpers2.setValue(text)}
+            /> */}
+        </View>
         <View style={styles.formButton}>
             <TouchableWithoutFeedback onPress={onSubmit} >
-                <Text color="textInTextBox" fontWeight="bold">Sign in</Text>
+                <Text color="textInTextBox" fontWeight="bold">Sign up</Text>
             </TouchableWithoutFeedback>
         </View>
     </View>
@@ -77,17 +82,23 @@ const SignIn = () => {
 
     const [signIn] = useSignIn();
     const history = useHistory();
+    const [createUser , result ] = useMutation(CREATE_USER);
 
     const onSubmit = async (values) => {
-        const { username, password } = values;
-
-        console.log('Tekstikenttiin kirjoitettiin: ', username, password); //values on olio, jolla kentät username ja password
+        const { username, password, passwordConf } = values;
+        
+        console.log('Tekstikenttiin kirjoitettiin: ', username, password, passwordConf); //values on olio, jolla kentät username ja password
         
         try {
-            /* const { data } = */ await signIn({ username, password }); // kirjaudutaan
-            //data on siis olio, jolla kenttä authorize, 
-            //jonka arvona olio, jolla kenttä accessToken
-            //console.log('SignIn-funktiokutsun palauttama data: ', data);
+            //rekisteröidytään:
+            const result = await createUser({ variables: {
+                user: {
+                    username,
+                    password,
+                }
+            }});
+            //kirjataan käyttäjä sisään:
+            await signIn({ username, password }); 
 
         } catch (e) {
             console.log(e);
@@ -97,18 +108,25 @@ const SignIn = () => {
     };
     
     const validationSchema = yup.object().shape({
-        password: yup
-            .string()    
-            .required('Password is required.'),
         username: yup
             .string()
-            .required('Username is required.')
+            .min(1).max(30)
+            .required('Username is required.'),
+
+        password: yup
+            .string()
+            .min(5).max(50)
+            .required('Password is required.'),
+        passwordConf: yup
+            .string()
+            .oneOf([yup.ref('password'), null])
+            .required('Password confirmation is required.'),
     });
     //Formikin sisällä (lapsena) on funktio, joka saa parametrikseen Formikin funktion, joka puolestaan annetaan 
     //kirjautumislomakkeelle propsina.
     return (
         <View>
-            <Formik initialValues={{username: '', password: ''}} 
+            <Formik initialValues={{username: '', password: '', passwordConf: ''}} 
             onSubmit={onSubmit} validationSchema={validationSchema}
             >
                 {({handleSubmit}) => <SignInForm onSubmit={handleSubmit} />} 

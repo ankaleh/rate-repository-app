@@ -8,8 +8,8 @@ const createApolloClient = (authStorage) => {//luodaan palvelimen kanssa kommuni
     request: async (operation) => {
       try {
         const accessToken = await authStorage.getAccessToken();
-        console.log('token: ', accessToken);
-        console.log(`Bearer ${accessToken}`);
+        //console.log('token: ', accessToken);
+        //console.log(`Bearer ${accessToken}`);
         operation.setContext({
           headers: {
             authorization: accessToken ? `Bearer ${accessToken}` : '',

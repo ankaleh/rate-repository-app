@@ -90,9 +90,17 @@ export const styles = StyleSheet.create({
     },
     reviewsContainer: {
         display: 'flex',
-        backgroundColor: "#b7d7e82",
+        //backgroundColor: "#b7d7e82",
         margin: 10,
-    }
+    },
+
+    buttonsSideBySide: { 
+        display: 'flex',
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        paddingLeft: 10
+        //backgroundColor: theme.colors.primary,
+    },
   });
 
 const RepositoryItem = ({ item, pressed }) => {
@@ -121,10 +129,10 @@ const RepositoryItem = ({ item, pressed }) => {
                 <Image style={styles.flexItemLogo} source={{ uri:item.ownerAvatarUrl }}/>
                 
                 <View style={styles.flexContainerBasics}>
-                    <Text style={styles.flexText} fontWeight="bold" fontSize="subheading">{item.fullName} </Text>
-                    <Text style={styles.flexText} fontSize="subheading">{item.description} </Text>
+                    <Text testID='name' style={styles.flexText} fontWeight="bold" fontSize="subheading">{item.fullName} </Text>
+                    <Text testID='description' style={styles.flexText} fontSize="subheading">{item.description} </Text>
                     <View style={styles.flexBoxContainer}>
-                        <Text style= {styles.flexBox} color="textInTextBox" fontWeight="bold">{item.language}
+                        <Text testID='language' style= {styles.flexBox} color="textInTextBox" fontWeight="bold">{item.language}
                     </Text>
                 </View>
                 </View>
@@ -133,22 +141,22 @@ const RepositoryItem = ({ item, pressed }) => {
             
             <View style={styles.flexContainerStats}>
                 <View style={styles.flexItemStats}>
-                <Text fontWeight="bold" fontSize="subheading">{stargazersCount}</Text>
-                    <Text fontSize="subheading">Stars</Text>
+                <Text testID='starsCount' fontWeight="bold" fontSize="subheading">{stargazersCount}</Text>
+                    <Text fontSize="subheading" testID='stars'>Stars</Text>
                 </View>
 
                 <View style={styles.flexItemStats}>
-                    <Text fontWeight="bold" fontSize="subheading">{forks}</Text>
+                    <Text testID='forks' fontWeight="bold" fontSize="subheading">{forks}</Text>
                     <Text fontSize="subheading">Forks</Text>
                 </View>
 
                 <View style={styles.flexItemStats}>
-                    <Text fontWeight="bold" fontSize="subheading">{reviews}</Text>
+                    <Text testID='reviews' fontWeight="bold" fontSize="subheading">{reviews}</Text>
                     <Text fontSize="subheading">Reviews</Text>
                 </View>
 
                 <View style={styles.flexItemStats}>
-                    <Text fontWeight="bold" fontSize="subheading">{ratings}</Text>
+                    <Text testID='ratings' fontWeight="bold" fontSize="subheading">{ratings}</Text>
                     <Text fontSize="subheading">Rating</Text>
                 </View>
             </View>

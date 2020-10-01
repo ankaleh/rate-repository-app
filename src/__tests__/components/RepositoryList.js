@@ -1,8 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
-import RepositoryItem from '../../components/RepositoryList'
 import { RepositoryListContainer} from '../../components/RepositoryList'
+
 
 
 describe('RepositoryList', () => {
@@ -55,6 +54,33 @@ describe('RepositoryList', () => {
         const {debug, getByTestId, getAllByTestId, queryByTestId } = render(<RepositoryListContainer repositories={repositories} />);
         //debug();
         
+        const listNames = getAllByTestId('name')
+        expect(listNames[0]).toHaveTextContent('jaredpalmer/formik')
+        expect(listNames[1]).toHaveTextContent('async-library/react-async')
+
+        const listStars = getAllByTestId('starsCount')
+        expect(listStars[0]).toHaveTextContent('21.9')
+        expect(listStars[1]).toHaveTextContent('1.8')
+
+        const listDescriptions = getAllByTestId('description')
+        expect(listDescriptions[0]).toHaveTextContent('Build forms in React, without the tears')
+        expect(listDescriptions[1]).toHaveTextContent('Flexible promise-based React data loader')
+        
+        const listLanguages = getAllByTestId('language')
+        expect(listLanguages[0]).toHaveTextContent('TypeScript')
+        expect(listLanguages[1]).toHaveTextContent('JavaScript')
+
+        const listForks = getAllByTestId('forks')
+        expect(listForks[0]).toHaveTextContent('1.6')
+        expect(listForks[1]).toHaveTextContent('69')
+
+        const listRatings = getAllByTestId('ratings')
+        expect(listRatings[0]).toHaveTextContent('88')
+        expect(listRatings[1]).toHaveTextContent('72')
+
+        const listReviews = getAllByTestId('reviews')
+        expect(listReviews[0]).toHaveTextContent('3')
+        expect(listReviews[1]).toHaveTextContent('3')
 
       });
     });

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 //import Constants from 'expo-constants';
 import { /* Text, */ StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
@@ -8,8 +8,11 @@ import { Route, Switch } from 'react-router-native';
 import SignIn from './SignIn';
 import { useApolloClient } from '@apollo/client';
 import Text from './Text';
-import RenderRepositoryItem from './RenderRepositoryItem'
-
+import RenderRepositoryItem from './RenderRepositoryItem';
+import Review from './Review';
+import SignUp from './SignUp'
+//import RNPickerSelect from /* '@react-native-community/picker' */'react-native-picker-select';
+import MyReviews from './MyReviews'
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +37,8 @@ const SignOut = () => {
  
 const Main = () => {
 
+  
+
 
 
   return (
@@ -41,15 +46,25 @@ const Main = () => {
       <AppBar/>
       <Switch>
         <Route path="/" exact >
-            <RepositoryList/>
+          <RepositoryList  />
         </Route>
+
+        <Route path="/my-reviews">
+          <MyReviews/>
+        </Route>
+
         <Route path="/sign-in">
             <SignIn />
         </Route>
         <Route path="/sign-out">
           <SignOut/>
         </Route>
-
+        <Route path="/sign-up">
+          <SignUp/>
+        </Route>
+        <Route path="/create-review">
+          <Review/>
+        </Route>
         <Route
           path="/:id"
           render={({ match }) => {

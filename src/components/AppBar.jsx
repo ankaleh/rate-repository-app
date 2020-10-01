@@ -7,6 +7,7 @@ import theme from '../theme';
 import AppBarTab from './AppBarTab';
 import { GET_AUTHORIZED_USER } from '../graphql/queries';
 
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
@@ -20,7 +21,10 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   
-  const { data, error, loading } = useQuery(GET_AUTHORIZED_USER);//TÄMÄ EI TOIMI!!!
+  const { data, error, loading } = useQuery(GET_AUTHORIZED_USER, {
+    variables: {includeReviews: Boolean(false)}
+  });
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -43,18 +47,25 @@ const AppBar = () => {
     );
   }
 
-  //console.log('User AppBarissa: ', user); 
+  console.log('User AppBarissa: ', user); 
 
   return (
+    
   <View style={styles.container}>
+    
       <ScrollView horizontal>
+      
             <AppBarTab text="Repositories" to="/"/>
             {user
-            ? <AppBarTab text="Sign out" to="/sign-out"/>
-            : <AppBarTab text="Sign in" to="/sign-in"/>}
-
+            ? <View><AppBarTab text="Sign out" to="/sign-out"/>
+              <AppBarTab text="Create a review" to="/create-review"/>
+              <AppBarTab text="My reviews" to="/my-reviews"/></View>
+            : <View><AppBarTab text="Sign in" to="/sign-in"/>
+              <AppBarTab text="Sign up" to="/sign-up"/></View>}
+            
       </ScrollView>
   </View>
+  
   );
 };
 

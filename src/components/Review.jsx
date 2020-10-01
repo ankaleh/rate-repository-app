@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 //import TextInput from './TextInput';
@@ -9,6 +9,8 @@ import theme from '../theme';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-native';
 import { CREATE_REVIEW } from '../graphql/mutations'
+import { useMutation } from '@apollo/react-hooks';
+
 
 
 export const styles = StyleSheet.create({
@@ -44,13 +46,13 @@ const ReviewForm = ( {onSubmit} ) => {
             <FormikTextInput style={styles.formField} name="owner" placeholder="Repository owner name" />
         </View>
         <View >
-            <FormikTextInput secureTextEntry style={styles.formField} name="name" placeholder="Repository name"/>
+            <FormikTextInput style={styles.formField} name="name" placeholder="Repository name"/>
         </View>
         <View >
-            <FormikTextInput secureTextEntry style={styles.formField} name="rating" placeholder="Rating between 0 and 100"/>
+            <FormikTextInput style={styles.formField} name="rating" placeholder="Rating between 0 and 100"/>
         </View>
         <View >
-            <FormikTextInput multiline secureTextEntry style={styles.formField} name="text" placeholder="Review"/>
+            <FormikTextInput multiline style={styles.formField} name="text" placeholder="Review"/>
         </View>
         <View style={styles.formButton}>
             <TouchableWithoutFeedback onPress={onSubmit} >
@@ -69,46 +71,49 @@ const Review = () => {
     
     const onSubmit = async (values) => {
         const { name, owner, rating, text} = values;
-
+        const ratingToNumber = Number(rating);
         console.log('Tekstikenttiin kirjoitettiin: ', values); //values on olio, jolla kentät username ja password
         
         try {
-             await createReview({ variables: {
+            const result = await createReview({ variables: {
                 review: {
                     repositoryName: name,
                     ownerName: owner,
-                    rating,
+                    rating: ratingToNumber,
                     text
                 }
               }
-                
             })
+            //console.log(result)
+            history.push(`/${result.data.createReview.repositoryId}`)
         } catch (e) {
             console.log(e);
         }
-        history.push('/');//juuri arvioituun repoon
+    
+        
         
     };
     
     const validationSchema = yup.object().shape({
         name: yup
             .string()    
-            .required(''),
+            .required('Repository name is required'),
         owner: yup
             .string()
-            .required(''),
+            .required('Repository owner name is required'),
         rating: yup
             .number()
             .max(100)
-            .min(0),
+            .min(0)
+            .required('Rating is required'),
         text: yup
             .string()
     });
-    //Formikin sisällä (lapsena) on funktio, joka saa parametrikseen Formikin funktion, joka puolestaan annetaan 
-    //kirjautumislomakkeelle propsina.
+    //Formikin sisällä (lapsena) on funktio, joka saa parametrikseen Formikin 
+    //funktion, joka puolestaan annetaan kirjautumislomakkeelle propsina.
     return (
         <View>
-            <Formik initialValues={{name: '', owner: '', rating: 0, text: ''}} 
+            <Formik initialValues={{name: '', owner: '', rating:'', text: ''}} 
             onSubmit={onSubmit} validationSchema={validationSchema}
             >
                 {({handleSubmit}) => <ReviewForm onSubmit={handleSubmit} />} 
