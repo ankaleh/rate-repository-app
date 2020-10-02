@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     
   });
 
-const SignInForm = ( {onSubmit} ) => {
+const SignUpForm = ( {onSubmit} ) => {
     /* const [field1, meta1, helpers1] = useField("username");
     const [field2, meta2, helpers2] = useField("password");
     const showError = meta1.touched && meta1.error; */
@@ -78,11 +78,11 @@ const SignInForm = ( {onSubmit} ) => {
         
 };
 
-const SignIn = () => {
+const SignUp = () => {
 
     const [signIn] = useSignIn();
     const history = useHistory();
-    const [createUser , result ] = useMutation(CREATE_USER);
+    const [createUser /* , result */ ] = useMutation(CREATE_USER);
 
     const onSubmit = async (values) => {
         const { username, password, passwordConf } = values;
@@ -129,7 +129,7 @@ const SignIn = () => {
             <Formik initialValues={{username: '', password: '', passwordConf: ''}} 
             onSubmit={onSubmit} validationSchema={validationSchema}
             >
-                {({handleSubmit}) => <SignInForm onSubmit={handleSubmit} />} 
+                {({handleSubmit}) => <SignUpForm onSubmit={handleSubmit} />} 
                 
             </Formik>
         </View>
@@ -139,4 +139,4 @@ const SignIn = () => {
   
 };
 
-export default SignIn;
+export default SignUp;

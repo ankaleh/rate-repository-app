@@ -1,4 +1,4 @@
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useState, useEffect } from 'react';
 import { GET_ALL_REPOSITORIES, GET_ALL_REPOSITORIES_ORDER_BY_ORDER_DIRECTION, GET_ALL_REPOSITORIES_SEARCH_KEYWORD } from '../graphql/queries';
@@ -7,9 +7,9 @@ const useRepositories = (selectedOrder, selectedOrderDirection, keyword) => {
 
 //console.log('selectedOrder: ', selectedOrder, 'selectedOrderDirection: ', selectedOrderDirection)
 
-const [getRepositories, resultRepositories] = useLazyQuery(GET_ALL_REPOSITORIES)
-const [getRepositoriesOrderByOrderDirection, resultRepositoriesOrderByOrderDirection] = useLazyQuery(GET_ALL_REPOSITORIES_ORDER_BY_ORDER_DIRECTION)
-const [getRepositoriesSearchKeyword, resultRepositoriesSearchKeyword] = useLazyQuery(GET_ALL_REPOSITORIES_SEARCH_KEYWORD)
+const [getRepositories, resultRepositories] = useLazyQuery(GET_ALL_REPOSITORIES);
+const [getRepositoriesOrderByOrderDirection, resultRepositoriesOrderByOrderDirection] = useLazyQuery(GET_ALL_REPOSITORIES_ORDER_BY_ORDER_DIRECTION);
+const [getRepositoriesSearchKeyword, resultRepositoriesSearchKeyword] = useLazyQuery(GET_ALL_REPOSITORIES_SEARCH_KEYWORD);
 
 
 const [repositories, setRepositories] = useState();
@@ -19,10 +19,10 @@ const [repositories, setRepositories] = useState();
 useEffect(() => {
   if (selectedOrderDirection==="DESC" || selectedOrderDirection==="ASC") {
     //console.log('Tehdään kysely getRepositoriesOrderByOrderDirection.')
-    getRepositoriesOrderByOrderDirection({ variables: {orderBy: selectedOrder, orderDirection: selectedOrderDirection, searchKeyword: keyword} })
+    getRepositoriesOrderByOrderDirection({ variables: {orderBy: selectedOrder, orderDirection: selectedOrderDirection, searchKeyword: keyword} });
   } else {
     //console.log('Tehdään kysely getRepositories.')
-    getRepositories({ variables: { orderBy: selectedOrder, searchKeyword: keyword } })
+    getRepositories({ variables: { orderBy: selectedOrder, searchKeyword: keyword } });
   }
 
 }, [selectedOrderDirection]);  
@@ -41,7 +41,7 @@ useEffect(() => {
   useEffect(() => {
     
     if (resultRepositoriesOrderByOrderDirection.data) {
-      setRepositories(resultRepositoriesOrderByOrderDirection.data.repositories)
+      setRepositories(resultRepositoriesOrderByOrderDirection.data.repositories);
     }
    else {
      //console.log('Ei asetettu mitään!')
@@ -50,7 +50,7 @@ useEffect(() => {
   }, [resultRepositoriesOrderByOrderDirection]);  
   
   useEffect(() => {
-    getRepositoriesSearchKeyword({ variables: { searchKeyword: keyword } })
+    getRepositoriesSearchKeyword({ variables: { searchKeyword: keyword } });
     
   }, [keyword]);  
 

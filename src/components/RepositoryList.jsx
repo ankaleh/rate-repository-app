@@ -4,7 +4,7 @@ import useRepositories from '../hooks/useRepositories';
 import CustomTouchableOpacity from './CustomTouchableOpacity';
 import RNPickerSelect from 'react-native-picker-select';
 import { useDebounce } from 'use-debounce';
-import { styles } from './SignIn'
+import { styles } from './SignIn';
 //import RepositoryItem from './RepositoryItem';
 
 
@@ -74,7 +74,7 @@ export default RepositoryList; */
 const RepositoryList = () => {
   
   const [selectedOrder, setSelectedOrder] = useState('CREATED_AT');
-  const [selectedOrderDirection, setSelectedOrderDirection] = useState('')
+  const [selectedOrderDirection, setSelectedOrderDirection] = useState('');
   const [text, setText] = useState('');
   const [value] = useDebounce(text, 2000);
   const { repositories } = useRepositories(selectedOrder, selectedOrderDirection, value);
@@ -82,13 +82,13 @@ const RepositoryList = () => {
   const onValueChange = (value) => {
     //console.log('Value: ', value)
     if (value==='ASC' || value==='DESC') {
-      setSelectedOrder('RATING_AVERAGE')
-      setSelectedOrderDirection(value)
+      setSelectedOrder('RATING_AVERAGE');
+      setSelectedOrderDirection(value);
     } else {
-      setSelectedOrder('CREATED_AT')
-      setSelectedOrderDirection(value)
+      setSelectedOrder('CREATED_AT');
+      setSelectedOrderDirection(value);
     }
-  }
+  };
   
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)

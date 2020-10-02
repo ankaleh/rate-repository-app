@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React/* , { useContext } */  from 'react';
 //import Constants from 'expo-constants';
 import { /* Text, */ StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
@@ -10,9 +10,10 @@ import { useApolloClient } from '@apollo/client';
 import Text from './Text';
 import RenderRepositoryItem from './RenderRepositoryItem';
 import Review from './Review';
-import SignUp from './SignUp'
+import SignUp from './SignUp';
 //import RNPickerSelect from /* '@react-native-community/picker' */'react-native-picker-select';
-import MyReviews from './MyReviews'
+import MyReviews from './MyReviews';
+//import AuthStorageContext from '../contexts/AuthStorageContext';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +26,9 @@ const styles = StyleSheet.create({
 const SignOut = () => {
   const apolloClient = useApolloClient();
   //const history = useHistory();
-  localStorage.clear();
+  localStorage.clear();//const authStorage = useContext(AuthStorageContext);
+  //const history = useHistory();
+  //authStorage.removeAccessToken()
   apolloClient.resetStore();
   //history.push('/')
   return (
@@ -36,10 +39,6 @@ const SignOut = () => {
 };
  
 const Main = () => {
-
-  
-
-
 
   return (
     <View style={styles.container}>
@@ -69,7 +68,7 @@ const Main = () => {
           path="/:id"
           render={({ match }) => {
             const id=match.params.id; 
-        return <RenderRepositoryItem id={id}/> 
+        return <RenderRepositoryItem id={id}/>; 
         }}
         />
       </Switch>

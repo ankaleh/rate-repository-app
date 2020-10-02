@@ -61,7 +61,7 @@ export const GET_ALL_REPOSITORIES_SEARCH_KEYWORD = gql`
 		}
 
 	}
-`
+`;
 
 
 export const GET_AUTHORIZED_USER = gql`
@@ -130,6 +130,6 @@ query getRepository($id: ID!, $after: String) {
 		}
 	}
 }
-`
+`;
 
 

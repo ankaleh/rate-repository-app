@@ -1,19 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 import RepositoryItem from './RepositoryItem';
-import { ItemSeparator } from './RepositoryList'
+import { ItemSeparator } from './RepositoryList';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_REPOSITORY } from '../graphql/queries'
-import { DELETE_REVIEW } from '../graphql/mutations'
+import { GET_REPOSITORY } from '../graphql/queries';
+import { DELETE_REVIEW } from '../graphql/mutations';
 import Text from './Text';
-import { FlatList, View, StyleSheet, TouchableWithoutFeedback, Alert } from 'react-native';
-import { format } from 'date-fns'
-import { styles } from './RepositoryItem'
+import { FlatList, View, TouchableWithoutFeedback } from 'react-native';
+import { format } from 'date-fns';
+import { styles } from './RepositoryItem';
 import { useHistory } from 'react-router-native';
 
 export const ReviewItem = ({review, myReview, refetch}) => {
-    const [deleteReview , result ] = useMutation(DELETE_REVIEW);
+    const [deleteReview /* , result */ ] = useMutation(DELETE_REVIEW);
     const history = useHistory();
-    const formattedDate = format(new Date(review.node.createdAt), 'dd.MM.yyyy')
+    const formattedDate = format(new Date(review.node.createdAt), 'dd.MM.yyyy');
     
     const deleteItem = async () => {
         /* Alert.alert(
@@ -23,7 +23,7 @@ export const ReviewItem = ({review, myReview, refetch}) => {
             {
               text: "Delete",
               onPress: async () => {  */
-                    const deleted = await deleteReview({variables: { id: review.node.id }})
+                    const deleted = await deleteReview({variables: { id: review.node.id }});
         
                     refetch();/* }
               
@@ -39,7 +39,7 @@ export const ReviewItem = ({review, myReview, refetch}) => {
         ); */
         //console.log('Arvostelun id: ', review.node.id)
         
-    }
+    };
 
     return (
         <View>
@@ -66,28 +66,28 @@ export const ReviewItem = ({review, myReview, refetch}) => {
         <View style={styles.formButton}>
                 <TouchableWithoutFeedback onPress={()=> {
                     //console.log('pressed view button')
-                    history.push(`/${review.node.repository.id}`)
+                    history.push(`/${review.node.repository.id}`);
                     }} >
                     <Text color="textInTextBox" fontWeight="bold">View repository</Text>
                 </TouchableWithoutFeedback>
         </View>
 
         <View style={styles.formButton}>
-                <TouchableWithoutFeedback onPress={()=> {deleteItem()}} >
+                <TouchableWithoutFeedback onPress={()=> {deleteItem();}} >
                     <Text color="textInTextBox" fontWeight="bold">Delete review</Text>
                 </TouchableWithoutFeedback>
         </View>
         </View>
         : null}
         </View>
-    )
-}
+    );
+};
 
 const RenderRepositoryItem = (id/* , item */) => {
-    const {data, error, loading, fetchMore} = useQuery(GET_REPOSITORY, { 
+    const {data, /* error, */ loading, fetchMore} = useQuery(GET_REPOSITORY, { 
         fetchPolicy: "cache-and-network",
         variables: {id: id.id/* , after: "WyIxYjEwZTRkOC01N2VlLTRkMDAtODg4Ni1lNGEwNDlkN2ZmOGYuamFyZWRwYWxtZXIuZm9ybWlrIiwxNTg4NjU2NzUwMDgwXQ==" */} });
-        console.log(id)
+        console.log(id);
     const [repository, setRepository] = useState(null);
     //const [reviews, setReviews] = useState([])
     /* if (id) {
@@ -100,7 +100,7 @@ const RenderRepositoryItem = (id/* , item */) => {
         if (!canFetchMore) {
           return;
         }
-        console.log('data aluksi: ', data)
+        console.log('data aluksi: ', data);
         fetchMore({
             query: GET_REPOSITORY,
             variables: {
@@ -122,7 +122,7 @@ const RenderRepositoryItem = (id/* , item */) => {
                     },
                 }
                 };
-                console.log('nextResult: ', nextResult)//reviews.edges ja reviews.pageinfo
+                console.log('nextResult: ', nextResult);//reviews.edges ja reviews.pageinfo
                 
                 return nextResult;
             },
@@ -131,13 +131,13 @@ const RenderRepositoryItem = (id/* , item */) => {
     };
 
     const onEndReach = () => {
-        console.log('Sivun lopussa!')
+        console.log('Sivun lopussa!');
         handleFetchMore();
-    }
+    };
     
     useEffect (()=> {
         if (data) {
-          console.log('Data.repository useEffectissä: ', data.repository)
+          console.log('Data.repository useEffectissä: ', data.repository);
           console.log(data.repository.reviews.pageInfo);
           setRepository(data.repository);
           //setReviews(data.repository.reviews.edges)
@@ -148,7 +148,7 @@ const RenderRepositoryItem = (id/* , item */) => {
       if (!repository) {
           return (
           <Text fontWeight='bold' color='primary' fontSize="subheading">Loading repository.</Text>
-          )
+          );
       }
       //console.log(repository.reviews.edges)//edges on taulukollinen olioita (review),
       //joilla yksi kenttä, node. Noden arvona olio, jolla esim. kentät rating ja text
@@ -170,6 +170,6 @@ const RenderRepositoryItem = (id/* , item */) => {
         />
         </View>
       );
-}
+};
 
 export default RenderRepositoryItem;

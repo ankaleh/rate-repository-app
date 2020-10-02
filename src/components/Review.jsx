@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import theme from '../theme';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-native';
-import { CREATE_REVIEW } from '../graphql/mutations'
+import { CREATE_REVIEW } from '../graphql/mutations';
 import { useMutation } from '@apollo/react-hooks';
 
 
@@ -67,7 +67,7 @@ const ReviewForm = ( {onSubmit} ) => {
 const Review = () => {
 
     const history = useHistory();
-    const [createReview , result ] = useMutation(CREATE_REVIEW);
+    const [createReview /* , result */ ] = useMutation(CREATE_REVIEW);
     
     const onSubmit = async (values) => {
         const { name, owner, rating, text} = values;
@@ -83,9 +83,9 @@ const Review = () => {
                     text
                 }
               }
-            })
+            });
             //console.log(result)
-            history.push(`/${result.data.createReview.repositoryId}`)
+            history.push(`/${result.data.createReview.repositoryId}`);
         } catch (e) {
             console.log(e);
         }

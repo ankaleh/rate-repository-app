@@ -8,7 +8,7 @@ import createApolloClient from './src/utils/apolloClient';
 import Constants from 'expo-constants';
 import AuthStorage from './src/utils/authStorage';
 import AuthStorageContext from './src/contexts/AuthStorageContext';
-import { gql } from 'apollo-boost';
+//import { gql } from 'apollo-boost';
 
 const authStorage = new AuthStorage();
 export const apolloClient = createApolloClient(authStorage);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { /* Text, */ View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Text from './Text';
-import theme from '../theme'
+import theme from '../theme';
 import * as Linking from 'expo-linking';
 
 export const styles = StyleSheet.create({
@@ -163,8 +163,8 @@ const RepositoryItem = ({ item, pressed }) => {
             {pressed === true
             ? <View style={styles.formButton}>
                 <TouchableWithoutFeedback onPress={()=> {
-                    console.log('pressed')
-                    Linking.openURL(item.url)
+                    console.log('pressed');
+                    Linking.openURL(item.url);
                     }} >
                     <Text color="textInTextBox" fontWeight="bold">Open in GitHub</Text>
                 </TouchableWithoutFeedback>

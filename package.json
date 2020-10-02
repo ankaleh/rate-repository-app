@@ -38,7 +38,7 @@
     "react-native-picker-select": "^7.0.0",
     "react-native-web": "~0.11.7",
     "react-router-native": "^5.2.0",
-    "undefined": "react-native-community/picker",
+    
     "use-debounce": "^5.0.1",
     "yup": "^0.29.3"
   },
